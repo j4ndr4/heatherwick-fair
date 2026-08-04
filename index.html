@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Fair — Parsley, Sage, Rosemary &amp; Thyme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="assets/index-CEfUK_4J.js"></script>
+    <link rel="stylesheet" crossorigin href="assets/index-DoynUdMq.css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- Title screen -->
+      <section id="title-screen" class="screen active">
+        <div class="title-bg"></div>
+        <div class="title-content">
+         <!-- <header class="title-header">
+            <p class="title-subtitle">A tale of Heatherwick</p>
+            <h1 class="title-main">The Fair</h1>
+          </header> -->
+          <div class="title-cards-wrap" id="title-cards-wrap">
+            <div
+              class="title-cards"
+              id="title-cards"
+              tabindex="0"
+              role="region"
+              aria-label="Story introduction"
+              aria-roledescription="carousel"
+            >
+              <article class="title-card is-active" data-card-index="0">
+                 <header class="title-header">
+                   <p class="title-subtitle">A tale of Heatherwick</p>
+                   <h1 class="title-main">The Fair</h1>
+                 </header>
+                 <br />
+                 <p>A letter arrives. Only some intriguing lines. You will understand that some demands were never meant to be met by ordinary means.</p>
+              </article>
+              <article class="title-card is-active" data-card-index="1">
+                <!-- <p>A letter arrives. Only two intriguing lines.</p> -->
+                <p>
+                  In the quiet coastal village of Heatherwick, young Elspie has no money and no
+                  clear path. Her mother can only tell her the truth: the message is an old
+                  riddle, and she must make her own way.
+                </p>
+                <p>
+                  So begins <em>The Fair</em> — a gentle, atmospheric role-playing game of
+                  impossible tasks, quiet magic, and the slow unravelling of an ancient love.
+                </p>
+              </article>
+              <article class="title-card" data-card-index="2" hidden>
+                <!-- <p>
+                  So begins <em>The Fair</em> — a gentle, atmospheric role-playing game of
+                  impossible tasks, quiet magic, and the slow unravelling of an ancient love.
+                </p> -->
+                <p>
+                  Wander the strands and the forest. Speak with villagers. Trade what the land
+                  gives you.
+                </p>
+              <!-- </article>
+              <article class="title-card title-card-closing" data-card-index="2" hidden> -->
+                <p class="title-closing">
+                  Inspired by the traditional ballad <em>Scarborough Fair</em> and its older,
+                  stranger root in <em>The Elfin Knight</em>, the game invites you into a world of
+                  hidden territories, leather sickles, and proofs of love that can only be
+                  answered with wit, patience, and the quiet courage of the North Country.
+                </p>
+              </article>
+            </div>
+            <div class="title-card-nav" aria-hidden="true">
+              <span class="title-card-dot is-active" data-dot="0"></span>
+              <span class="title-card-dot" data-dot="1"></span>
+              <span class="title-card-dot" data-dot="2"></span>
+            </div>
+            <p class="title-card-hint" id="title-card-hint">
+              Use <kbd>←</kbd> <kbd>→</kbd> or <kbd>↑</kbd> <kbd>↓</kbd> to continue
+            </p>
+          </div>
+          <footer class="title-footer">
+            <button id="btn-start" class="btn primary">Begin</button>
+          </footer>
+        </div>
+      </section>
+
+      <!-- Game shell -->
+      <section id="game-screen" class="screen">
+        <div id="game-frame">
+          <canvas id="game-canvas" width="960" height="720" tabindex="0" aria-label="Game view"></canvas>
+
+          <!-- Location label -->
+          <div id="location-label"></div>
+
+          <!-- Interaction prompt -->
+          <div id="interact-prompt" class="hidden">
+            Press <kbd>Space</kbd> to interact
+          </div>
+
+          <!-- HUD -->
+          <div id="hud">
+            <button id="btn-map" class="hud-btn" title="Open map (M)">Map</button>
+            <button id="btn-letter" class="hud-btn" title="View letter (L)">Letter</button>
+            <button id="btn-inventory" class="hud-btn" title="Inventory (I)">Satchel</button>
+          </div>
+
+          <!-- Dialogue box -->
+          <div id="dialogue-box" class="panel hidden">
+            <div id="dialogue-speaker"></div>
+            <div id="dialogue-text"></div>
+            <div id="dialogue-choices"></div>
+            <button id="dialogue-continue" class="btn subtle hidden">Continue</button>
+          </div>
+
+          <!-- Map overlay -->
+          <div id="map-overlay" class="overlay hidden">
+            <div class="overlay-panel map-panel">
+              <header class="overlay-header map-header">
+                <p class="map-hint">
+                  Click a place to travel. You are at <strong id="map-current"></strong>.
+                </p>
+                <button id="btn-close-map" class="btn subtle">Close</button>
+              </header>
+              <div class="map-wrap">
+                <div id="map-stage" class="map-stage">
+                  <img id="map-image" src="/assets/map-labeled.jpg" alt="Map of the bay" />
+                  <div id="map-hotspots"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Letter overlay -->
+          <div id="letter-overlay" class="overlay hidden">
+            <div class="overlay-panel letter-panel">
+              <header class="overlay-header">
+                <h2>The Mysterious Letter</h2>
+                <button id="btn-close-letter" class="btn subtle">Close</button>
+              </header>
+              <div class="letter-body">
+                <p class="letter-line">Are you going to Heatherwick Fair?</p>
+                <p class="letter-line">
+                  Parsley, sage, rosemary, and thyme.
+                </p>
+                <p class="letter-line">You once were a true love of mine.</p>
+                <div id="letter-herbs" class="letter-herbs" aria-label="Herb drawings on the letter">
+                  <figure class="herb-drawing" data-herb="parsley">
+                    <img
+                      class="herb-img herb-img-empty"
+                      src="/assets/herbs/empty-parsley.png"
+                      alt="Parsley drawing, faint"
+                    />
+                    <img
+                      class="herb-img herb-img-found"
+                      src="/assets/herbs/found-parsley.png"
+                      alt="Parsley drawing"
+                    />
+                  </figure>
+                  <figure class="herb-drawing" data-herb="sage">
+                    <img
+                      class="herb-img herb-img-empty"
+                      src="/assets/herbs/empty-sage.png"
+                      alt="Sage drawing, faint"
+                    />
+                    <img
+                      class="herb-img herb-img-found"
+                      src="/assets/herbs/found-sage.png"
+                      alt="Sage drawing"
+                    />
+                  </figure>
+                  <figure class="herb-drawing" data-herb="rosemary">
+                    <img
+                      class="herb-img herb-img-empty"
+                      src="/assets/herbs/empty-rosemary.png"
+                      alt="Rosemary drawing, faint"
+                    />
+                    <img
+                      class="herb-img herb-img-found"
+                      src="/assets/herbs/found-rosemary.png"
+                      alt="Rosemary drawing"
+                    />
+                  </figure>
+                  <figure class="herb-drawing" data-herb="thyme">
+                    <img
+                      class="herb-img herb-img-empty"
+                      src="/assets/herbs/empty-thyme.png"
+                      alt="Thyme drawing, faint"
+                    />
+                    <img
+                      class="herb-img herb-img-found"
+                      src="/assets/herbs/found-thyme.png"
+                      alt="Thyme drawing"
+                    />
+                  </figure>
+                </div>
+                <div id="letter-reveal" class="letter-reveal hidden">
+                  <p class="letter-line">Make me a cambric shirt,</p>
+                  <p class="letter-line">Without no seams nor needle work.</p>
+                  <p class="letter-continued">(to be continued)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory overlay -->
+          <div id="inventory-overlay" class="overlay hidden">
+            <div class="overlay-panel inventory-panel">
+              <header class="overlay-header">
+                <h2>Satchel</h2>
+                <button id="btn-close-inventory" class="btn subtle">Close</button>
+              </header>
+              <ul id="inventory-list"></ul>
+              <p id="inventory-empty" class="muted">Your satchel is empty.</p>
+            </div>
+          </div>
+
+          <!-- Toast notifications -->
+          <div id="toast" class="toast hidden"></div>
+        </div>
+
+        <footer id="controls-help">
+          <span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> Move</span>
+          <span><kbd>Space</kbd> Interact</span>
+          <span><kbd>M</kbd> Map</span>
+          <span><kbd>L</kbd> Letter</span>
+          <span><kbd>I</kbd> Satchel</span>
+          <span><kbd>Esc</kbd> Close</span>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
